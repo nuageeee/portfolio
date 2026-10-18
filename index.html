@@ -101,7 +101,7 @@
       <div class="sun"></div>
 
       <!-- Nuages lointains : petits, pâles, flous, près de l'horizon -->
-      <svg class="cloud cloud--far" style="--x: 8%; --y: 52%; --w: clamp(90px, 12vw, 190px)" viewBox="0 0 200 100"><use href="#cloud-b" /></svg>
+      <svg class="cloud cloud--far" style="--x: 60%; --y: 50%; --w: clamp(90px, 12vw, 190px)" viewBox="0 0 200 100"><use href="#cloud-b" /></svg>
       <svg class="cloud cloud--far cloud--flip" style="--x: 30%; --y: 72%; --w: clamp(100px, 13vw, 210px)" viewBox="0 0 200 100"><use href="#cloud-a" /></svg>
       <svg class="cloud cloud--far" style="--x: 60%; --y: 78%; --w: clamp(110px, 15vw, 230px)" viewBox="0 0 200 100"><use href="#cloud-b" /></svg>
       <svg class="cloud cloud--far cloud--flip" style="--x: 84%; --y: 60%; --w: clamp(80px, 11vw, 170px)" viewBox="0 0 200 100"><use href="#cloud-a" /></svg>
@@ -128,195 +128,170 @@
     </header>
 
     <main id="contenu">
-      <!-- ===== Accueil ===== -->
+      <!-- ===== Accueil : seul endroit où le ciel est vraiment visible ===== -->
       <section id="accueil" class="hero">
-        <p class="hero-kicker">Développeur · Linux · Open source</p>
-        <h1>Bonjour, moi c'est <em>Nuage</em>.</h1>
+        <h1>Nuage</h1>
         <p class="hero-lead">
           Je construis des outils simples pour des choses qui ne le sont pas&nbsp;:
           gérer un serveur Linux, éditer du code, superviser une infra auto-hébergée.
         </p>
-        <div class="hero-actions">
-          <a class="btn btn--primary" href="#projets">Voir mes projets</a>
-          <a class="btn" href="https://github.com/nuageeee" target="_blank" rel="noopener">GitHub</a>
-        </div>
+        <p class="hero-links">
+          <a href="#projets">Voir les projets</a>
+          <a href="https://github.com/nuageeee" target="_blank" rel="noopener">GitHub&nbsp;↗</a>
+        </p>
       </section>
 
-      <!-- ===== À propos ===== -->
-      <section id="a-propos" class="section">
-        <h2>À propos</h2>
-        <div class="card about">
-          <p>
-            Je code avant tout pour <strong>aider les autres</strong>&nbsp;: rendre accessible ce qui
-            demande d'habitude une dizaine de commandes ou un après-midi de documentation.
-          </p>
-          <p>
-            Mon terrain de jeu, c'est <strong>Linux</strong>, l'<strong>open source</strong> et
-            l'<strong>auto-hébergement</strong>. Je fais tourner mes propres serveurs, je publie mes
-            outils sous licence libre, et je préfère comprendre comment une chose marche plutôt
-            que d'importer une solution toute faite.
-          </p>
-          <p>
-            Côté terrain, je suis technicien de maintenance industrielle&nbsp;: automates,
-            électricité, équipements. Ça se retrouve dans mes projets, entre logiciel et matériel.
-          </p>
-        </div>
-      </section>
+      <!--
+        La "feuille" : tout le contenu repose sur une surface pleine qui monte par-dessus le ciel,
+        au lieu d'une collection de cartes en verre.
+      -->
+      <div class="sheet">
+        <!-- ===== À propos ===== -->
+        <section id="a-propos" class="block">
+          <h2>À propos</h2>
+          <div class="block-body">
+            <p>
+              Je code avant tout pour aider les autres&nbsp;: rendre accessible ce qui demande
+              d'habitude une dizaine de commandes ou un après-midi de documentation.
+            </p>
+            <p>
+              Mon terrain de jeu, c'est Linux, l'open source et l'auto-hébergement. Je fais tourner
+              mes propres serveurs, je publie mes outils sous licence libre, et je préfère comprendre
+              comment une chose marche plutôt que d'importer une solution toute faite.
+            </p>
+            <p>
+              Côté terrain, je suis technicien de maintenance industrielle&nbsp;: automates,
+              électricité, équipements. Ça se retrouve dans mes projets, entre logiciel et matériel.
+            </p>
 
-      <!-- ===== Compétences ===== -->
-      <section id="competences" class="section">
-        <h2>Compétences</h2>
-        <div class="skills-grid">
-          <div class="card skill-group">
-            <h3>Langages</h3>
-            <ul class="tags">
-              <li>Dart</li><li>JavaScript</li><li>HTML / CSS</li><li>PHP · Laravel</li><li>Bash</li>
-            </ul>
           </div>
-          <div class="card skill-group">
-            <h3>Systèmes & infra</h3>
-            <ul class="tags">
-              <li>Linux</li><li>systemd</li><li>Docker</li><li>Traefik · Dokploy</li><li>SSH</li><li>Dépôts APT signés</li>
-            </ul>
-          </div>
-          <div class="card skill-group">
-            <h3>Supervision</h3>
-            <ul class="tags">
-              <li>Grafana</li><li>Prometheus</li><li>Node Exporter</li><li>Portainer</li>
-            </ul>
-          </div>
-          <div class="card skill-group">
-            <h3>Applications</h3>
-            <ul class="tags">
-              <li>Interfaces terminal (TUI)</li><li>Electron</li><li>CodeMirror</li><li>Tauri</li><li>React · Inertia</li>
-            </ul>
-          </div>
-          <div class="card skill-group">
-            <h3>Matériel & automatisme</h3>
-            <ul class="tags">
-              <li>Arduino</li><li>ESP32</li><li>Raspberry Pi</li><li>Automates · OpenPLC</li><li>Impression 3D</li>
-            </ul>
-          </div>
-          <div class="card skill-group">
-            <h3>Méthode</h3>
-            <ul class="tags">
-              <li>Git · GitHub</li><li>Publication pub.dev</li><li>Versions incrémentales</li><li>Documentation</li>
-            </ul>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- ===== Projets ===== -->
-      <section id="projets" class="section">
-        <h2>Projets</h2>
-
-        <article class="card project project--featured">
-          <div class="project-head">
-            <h3>Vigie</h3>
-            <span class="badge">Projet principal</span>
+        <!-- ===== Compétences ===== -->
+        <section id="competences" class="block">
+          <h2>Compétences</h2>
+          <div class="block-body">
+            <dl class="toolbox">
+              <div>
+                <dt>Langages</dt>
+                <dd>Dart, JavaScript, HTML / CSS, PHP (Laravel), Bash</dd>
+              </div>
+              <div>
+                <dt>Systèmes & infra</dt>
+                <dd>Linux, systemd, Docker, Traefik, Dokploy, SSH, dépôts APT signés</dd>
+              </div>
+              <div>
+                <dt>Supervision</dt>
+                <dd>Grafana, Prometheus, Node Exporter, Portainer</dd>
+              </div>
+              <div>
+                <dt>Applications</dt>
+                <dd>Interfaces terminal (TUI), Electron, CodeMirror, Tauri, React / Inertia</dd>
+              </div>
+              <div>
+                <dt>Matériel & automatisme</dt>
+                <dd>Arduino, ESP32, Raspberry Pi, automates (OpenPLC), impression 3D</dd>
+              </div>
+              <div>
+                <dt>Méthode</dt>
+                <dd>Git et GitHub, publication sur pub.dev, petites versions utilisables, documentation</dd>
+              </div>
+            </dl>
           </div>
-          <p>
-            Gérer un serveur Linux depuis une seule fenêtre&nbsp;: surveiller la machine, créer des
-            utilisateurs, suivre les processus, activer ou couper les services systemd. Le tout dans
-            une interface terminal, utilisable en SSH, sans retenir une dizaine de commandes.
-          </p>
-          <ul class="facts">
-            <li>Interface plein écran avec support de la souris et shell bash intégré</li>
-            <li>Publié sur pub.dev et distribué via mon propre dépôt APT signé</li>
-            <li>Open source, licence MIT</li>
-          </ul>
-          <ul class="tags">
-            <li>Dart</li><li>TUI</li><li>systemd</li><li>APT</li>
-          </ul>
-          <div class="project-links">
-            <a href="https://github.com/nuageeee/vigie" target="_blank" rel="noopener">Code source</a>
-            <a href="https://pub.dev/packages/vigie" target="_blank" rel="noopener">pub.dev</a>
-            <a href="https://nuageeee.github.io/vigie/" target="_blank" rel="noopener">Documentation</a>
-          </div>
-        </article>
+        </section>
 
-        <div class="projects-grid">
-          <article class="card project">
-            <div class="project-head">
-              <h3>Cirrus</h3>
-              <span class="badge badge--wip">En cours</span>
+        <!-- ===== Projets ===== -->
+        <section id="projets" class="block">
+          <h2>Projets</h2>
+          <div class="block-body">
+            <!-- Projet principal -->
+            <article class="feature">
+              <h3>Vigie</h3>
+              <p class="feature-lead">
+                Gérer un serveur Linux depuis une seule fenêtre&nbsp;: surveiller la machine, créer des
+                utilisateurs, suivre les processus, activer ou couper les services systemd. Le tout dans
+                une interface terminal, utilisable en SSH, sans retenir une dizaine de commandes.
+              </p>
+
+              <!--
+                CAPTURE DE VIGIE : dépose ton image dans public/vigie.png (ou un .gif),
+                puis enlève les marques de commentaire autour du bloc <figure> ci-dessous.
+
+              <figure class="shot">
+                <img src="/vigie.png" alt="L'interface de Vigie dans un terminal" loading="lazy" />
+              </figure>
+              -->
+
+              <ul class="feature-facts">
+                <li>Interface plein écran, souris et shell bash intégré</li>
+                <li>Publié sur pub.dev, distribué par mon propre dépôt APT signé</li>
+                <li>Open source, licence MIT &middot; écrit en Dart</li>
+              </ul>
+              <p class="links">
+                <a href="https://github.com/nuageeee/vigie" target="_blank" rel="noopener">Code source&nbsp;↗</a>
+                <a href="https://pub.dev/packages/vigie" target="_blank" rel="noopener">pub.dev&nbsp;↗</a>
+                <a href="https://nuageeee.github.io/vigie/" target="_blank" rel="noopener">Documentation&nbsp;↗</a>
+              </p>
+            </article>
+
+            <!-- Projets secondaires : un peu de texte, pas de carte -->
+            <div class="others">
+              <article>
+                <h3>Cirrus <span class="status">en cours</span></h3>
+                <p>
+                  Mon propre éditeur de code, pensé pour être modifiable de fond en comble, dans
+                  l'esprit d'Atom. JavaScript, Electron et CodeMirror&nbsp;6.
+                </p>
+              </article>
+              <article>
+                <h3>Reset Linux</h3>
+                <p>
+                  Remettre une machine Linux dans un état de référence en récupérant ses fichiers
+                  depuis un serveur distant. En Dart, avec une architecture inspirée d'ostree.
+                </p>
+              </article>
+              <article>
+                <h3>Supervision auto-hébergée</h3>
+                <p>
+                  Grafana et Prometheus pour surveiller plusieurs VPS, avec des tableaux de bord
+                  construits à la main plutôt qu'importés.
+                </p>
+              </article>
             </div>
-            <p>
-              Mon propre éditeur de code, pensé pour être modifiable de fond en comble, dans
-              l'esprit d'Atom. Construit par petites versions utilisables.
-            </p>
-            <ul class="tags"><li>JavaScript</li><li>Electron</li><li>CodeMirror 6</li></ul>
-          </article>
 
-          <article class="card project">
-            <div class="project-head"><h3>Reset Linux</h3></div>
-            <p>
-              Remettre une machine Linux dans un état de référence en récupérant ses fichiers
-              depuis un serveur distant. Détection de la distribution, architecture inspirée d'ostree.
-            </p>
-            <ul class="tags"><li>Dart</li><li>Linux</li></ul>
-          </article>
-
-          <article class="card project">
-            <div class="project-head"><h3>Supervision auto-hébergée</h3></div>
-            <p>
-              Une stack Grafana et Prometheus qui surveille plusieurs VPS, avec des tableaux de bord
-              construits à la main et un accès aux métriques restreint par pare-feu.
-            </p>
-            <ul class="tags"><li>Grafana</li><li>Prometheus</li><li>Docker</li><li>UFW</li></ul>
-          </article>
-
-          <article class="card project">
-            <div class="project-head"><h3>Contribution à Whisper Money</h3></div>
-            <p>
-              Développement d'une fonctionnalité de suivi des abonnements dans une application de
-              finances personnelles, en respectant les conventions du projet existant.
-            </p>
-            <ul class="tags"><li>Laravel</li><li>React</li><li>Inertia</li></ul>
-          </article>
-
-          <article class="card project">
-            <div class="project-head"><h3>Système basé sur Arch</h3></div>
-            <p>
-              Une distribution personnelle basée sur Arch Linux, avec un installateur graphique et une
-              animation de démarrage façon vieux terminal.
-            </p>
-            <ul class="tags"><li>Arch Linux</li><li>Tauri</li><li>Plymouth</li></ul>
-          </article>
-
-          <article class="card project">
-            <div class="project-head">
-              <h3>Ruby, robot de bureau</h3>
-              <span class="badge badge--wip">En cours</span>
-            </div>
-            <p>
-              Un petit robot qui réagit au toucher et à la voix, avec une IA vocale qui tourne sur un
-              Raspberry Pi et une coque modélisée puis imprimée en 3D.
-            </p>
-            <ul class="tags"><li>Arduino</li><li>Raspberry Pi</li><li>FreeCAD</li></ul>
-          </article>
-        </div>
-      </section>
-
-      <!-- ===== Contact ===== -->
-      <section id="contact" class="section">
-        <h2>Contact</h2>
-        <div class="card contact">
-          <p>
-            Un retour sur un de mes outils, une idée, une question&nbsp;? Le plus simple, c'est
-            de passer par GitHub.
-          </p>
-          <div class="hero-actions">
-            <a class="btn btn--primary" href="https://github.com/nuageeee" target="_blank" rel="noopener">Mon GitHub</a>
-            <a class="btn" href="https://github.com/nuageeee/vigie/issues" target="_blank" rel="noopener">Un retour sur Vigie</a>
+            <!-- Le reste, en simple liste -->
+            <h3 class="list-title">Aussi</h3>
+            <ul class="small-list">
+              <li><strong>Whisper Money</strong> &mdash; suivi des abonnements, contribution à une appli Laravel / React</li>
+              <li><strong>Distribution basée sur Arch</strong> &mdash; installateur Tauri, démarrage façon vieux terminal</li>
+              <li><strong>Ruby</strong> &mdash; robot de bureau avec une IA vocale sur Raspberry Pi <span class="status">en cours</span></li>
+            </ul>
           </div>
-        </div>
-      </section>
+        </section>
+
+        <!-- ===== Contact ===== -->
+        <section id="contact" class="block">
+          <h2>Contact</h2>
+          <div class="block-body">
+            <p>
+              Un retour sur un de mes outils, une idée, une question&nbsp;? Le plus simple, c'est
+              de passer par GitHub.
+            </p>
+            <p class="links">
+              <a href="https://github.com/nuageeee" target="_blank" rel="noopener">github.com/nuageeee&nbsp;↗</a>
+              <a href="https://github.com/nuageeee/vigie/issues" target="_blank" rel="noopener">Un retour sur Vigie&nbsp;↗</a>
+            </p>
+          </div>
+        </section>
+
+        <footer class="site-footer">
+          <p>
+            HTML, CSS et un peu de JavaScript, auto-hébergé.
+            <a href="https://github.com/nuageeee/portfolio" target="_blank" rel="noopener">Code source&nbsp;↗</a>
+          </p>
+        </footer>
+      </div>
     </main>
-
-    <footer class="site-footer">
-      <p>Fait main par Nuage, en HTML et CSS, auto-hébergé.</p>
-    </footer>
 
     <script type="module" src="/src/main.js"></script>
   </body>

@@ -1,0 +1,573 @@
+/* =========================================================
+   Polices auto-hébergées (dans public/fonts, aucun appel externe)
+   ========================================================= */
+@font-face {
+    font-family: "Fraunces";
+    src: url("/fonts/fraunces.woff2") format("woff2");
+    font-weight: 100 900;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Inter";
+    src: url("/fonts/inter.woff2") format("woff2");
+    font-weight: 100 900;
+    font-display: swap;
+}
+
+/* =========================================================
+   Variables animables
+   ---------------------------------------------------------
+   Un navigateur ne sait pas animer un dégradé directement.
+   En déclarant les variables comme des <color> avec @property,
+   il sait les interpoler : le ciel glisse alors du matin au soir
+   au lieu de sauter d'un coup.
+   ========================================================= */
+@property --top-sky     { syntax: "<color>"; inherits: true; initial-value: #9CC8EE; }
+@property --mid-sky     { syntax: "<color>"; inherits: true; initial-value: #F6C9C0; }
+@property --horizon     { syntax: "<color>"; inherits: true; initial-value: #FBD98A; }
+@property --heart       { syntax: "<color>"; inherits: true; initial-value: #FFFBEA; }
+@property --crown       { syntax: "<color>"; inherits: true; initial-value: #FFE7A8; }
+@property --halo        { syntax: "<color>"; inherits: true; initial-value: #FBD98A; }
+@property --cloud-light { syntax: "<color>"; inherits: true; initial-value: #FFFFFF; }
+@property --cloud-shade { syntax: "<color>"; inherits: true; initial-value: #F7CFC4; }
+@property --text        { syntax: "<color>"; inherits: true; initial-value: #1E1B4B; }
+@property --text-soft   { syntax: "<color>"; inherits: true; initial-value: #47436F; }
+@property --accent      { syntax: "<color>"; inherits: true; initial-value: #B4532A; }
+@property --glass       { syntax: "<color>"; inherits: true; initial-value: rgb(255 255 255 / 0.5); }
+@property --glass-edge  { syntax: "<color>"; inherits: true; initial-value: rgb(255 255 255 / 0.75); }
+@property --stars       { syntax: "<number>"; inherits: true; initial-value: 0; }
+@property --tag-bg      { syntax: "<color>"; inherits: true; initial-value: rgb(255 255 255 / 0.55); }
+
+/* =========================================================
+   Thèmes
+   ========================================================= */
+:root {
+    --top-sky: #9CC8EE;
+    --mid-sky: #F6C9C0;
+    --horizon: #FBD98A;
+
+    --heart: #FFFBEA;
+    --crown: #FFE7A8;
+    --halo: #FBD98A;
+
+    --cloud-light: #FFFFFF;
+    --cloud-shade: #F7CFC4;
+
+    --text: #1E1B4B;
+    --text-soft: #47436F;
+    --accent: #B4532A;
+    --glass: rgb(255 255 255 / 0.5);
+    --glass-edge: rgb(255 255 255 / 0.75);
+    --tag-bg: rgb(255 255 255 / 0.55);
+    --stars: 0;
+
+    --font-title: "Fraunces", Georgia, serif;
+    --font-body: "Inter", system-ui, sans-serif;
+    --radius: 20px;
+
+    color-scheme: light;
+}
+
+[data-theme="dusk"] {
+    --top-sky: #1E1B4B;
+    --mid-sky: #6B3F8C;
+    --horizon: #F08A5D;
+
+    --heart: #FFE0B2;
+    --crown: #FFB36B;
+    --halo: #F08A5D;
+
+    --cloud-light: #8E6BAE;
+    --cloud-shade: #F4A27E;
+
+    --text: #FBEFE6;
+    --text-soft: #E2D2E8;
+    --accent: #FFB36B;
+    --glass: rgb(30 27 75 / 0.45);
+    --glass-edge: rgb(255 224 178 / 0.25);
+    --tag-bg: rgb(255 224 178 / 0.14);
+    --stars: 1;
+
+    color-scheme: dark;
+}
+
+/* Le fondu entre thèmes, sauf pour ceux qui ont demandé moins de mouvement */
+@media (prefers-reduced-motion: no-preference) {
+    :root {
+        transition:
+            --top-sky 0.9s ease, --mid-sky 0.9s ease, --horizon 0.9s ease,
+            --heart 0.9s ease, --crown 0.9s ease, --halo 0.9s ease,
+            --cloud-light 0.9s ease, --cloud-shade 0.9s ease,
+            --text 0.6s ease, --text-soft 0.6s ease, --accent 0.6s ease,
+            --glass 0.6s ease, --glass-edge 0.6s ease, --tag-bg 0.6s ease,
+            --stars 1.2s ease;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+/* =========================================================
+   Base
+   ========================================================= */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+/* Couleur de secours sous le ciel (rebond du défilement sur mobile, etc.) */
+html {
+    background: var(--mid-sky);
+}
+
+body {
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    color: var(--text);
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--font-title);
+    font-weight: 600;
+    line-height: 1.15;
+    margin: 0;
+    /* Fraunces a un axe "SOFT" qui arrondit les lettres : parfait pour un nuage */
+    font-variation-settings: "SOFT" 100;
+}
+
+a {
+    color: inherit;
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+/* Les ancres ne passent pas sous l'en-tête fixe */
+section[id] {
+    scroll-margin-top: 5rem;
+}
+
+/* =========================================================
+   Ciel, soleil, nuages
+   ========================================================= */
+.sky {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+    background: linear-gradient(to bottom, var(--top-sky), var(--mid-sky), var(--horizon));
+}
+
+/* Les étoiles couvrent tout le ciel ; le fondu passe par la variable --stars */
+.stars {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: var(--stars);
+}
+
+.sun {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: radial-gradient(circle, var(--heart) 0%, var(--crown) 30%, var(--halo) 70%, transparent);
+}
+
+/*
+  Chaque nuage reçoit sa position (--x, --y) et sa largeur (--w)
+  directement dans le HTML. Positions en %, largeurs en vw bornées par clamp(),
+  pour que la composition tienne sur mobile comme sur grand écran.
+*/
+.cloud-defs {
+    position: absolute;
+}
+
+.cloud {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: var(--w);
+    height: auto;
+}
+
+/* Profondeur sans animation : loin = pâle et flou, proche = opaque et net */
+.cloud--far {
+    opacity: 0.55;
+    filter: blur(1.5px);
+}
+
+.cloud--near {
+    opacity: 0.92;
+}
+
+/* Miroir horizontal, pour varier les formes sans en dessiner d'autres */
+.cloud--flip {
+    transform: scaleX(-1);
+}
+
+/* =========================================================
+   Verre dépoli, réutilisé partout
+   ========================================================= */
+.card,
+.site-header,
+.theme-toggle,
+.btn {
+    background: var(--glass);
+    border: 1px solid var(--glass-edge);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+}
+
+/* =========================================================
+   En-tête
+   ========================================================= */
+.skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -3rem;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    background: var(--text);
+    color: var(--top-sky);
+    z-index: 20;
+}
+
+.skip-link:focus {
+    top: 1rem;
+}
+
+.site-header {
+    position: fixed;
+    top: 0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    width: min(1100px, calc(100% - 1.5rem));
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 0.5rem 0.5rem 1.25rem;
+    border-radius: 999px;
+}
+
+.logo {
+    font-family: var(--font-title);
+    font-variation-settings: "SOFT" 100;
+    font-size: 1.35rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.logo span {
+    color: var(--accent);
+}
+
+.site-header nav {
+    margin-left: auto;
+}
+
+.nav-links {
+    display: flex;
+    gap: 0.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    display: block;
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.nav-links a:hover {
+    background: var(--tag-bg);
+}
+
+/* Lien de la section en cours (ajouté par nav.js) */
+.nav-links a.is-active {
+    background: var(--tag-bg);
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.theme-toggle {
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    font: inherit;
+    font-size: 0.95rem;
+    color: var(--text);
+    cursor: pointer;
+}
+
+.theme-toggle:hover {
+    background: var(--tag-bg);
+}
+
+/* Sur petit écran, on garde le logo et le bouton, on cache les liens */
+@media (max-width: 720px) {
+    .nav-links {
+        display: none;
+    }
+
+    .theme-toggle {
+        margin-left: auto;
+    }
+}
+
+/* =========================================================
+   Accueil
+   ========================================================= */
+main {
+    width: min(1100px, calc(100% - 2rem));
+    margin: 0 auto;
+}
+
+.hero {
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0 8rem;
+}
+
+.hero-kicker {
+    margin: 0 0 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+}
+
+.hero h1 {
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    max-width: 14ch;
+}
+
+.hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+}
+
+.hero-lead {
+    max-width: 38rem;
+    margin: 1.5rem 0 2rem;
+    font-size: 1.15rem;
+    color: var(--text-soft);
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.btn:hover {
+    background: var(--tag-bg);
+}
+
+.btn--primary {
+    background: var(--text);
+    color: var(--top-sky);
+    border-color: transparent;
+}
+
+.btn--primary:hover {
+    background: var(--text);
+    opacity: 0.88;
+}
+
+/* =========================================================
+   Sections
+   ========================================================= */
+.section {
+    padding: 4rem 0;
+}
+
+.section h2 {
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    margin-bottom: 1.5rem;
+}
+
+.card {
+    border-radius: var(--radius);
+    padding: 1.75rem;
+}
+
+.about p {
+    margin: 0 0 1rem;
+    max-width: 65ch;
+}
+
+.about p:last-child {
+    margin-bottom: 0;
+}
+
+/* Compétences */
+.skills-grid,
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    gap: 1rem;
+}
+
+.skill-group h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tags li {
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    background: var(--tag-bg);
+    font-size: 0.875rem;
+}
+
+/* Projets */
+.project {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.project p {
+    margin: 0;
+    color: var(--text-soft);
+}
+
+.project .tags {
+    margin-top: auto;
+}
+
+.project-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.project h3 {
+    font-size: 1.4rem;
+}
+
+.badge {
+    padding: 0.15rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: var(--accent);
+    color: #FFFFFF;
+}
+
+[data-theme="dusk"] .badge {
+    color: #1E1B4B;
+}
+
+.badge--wip {
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+}
+
+[data-theme="dusk"] .badge--wip {
+    color: var(--accent);
+}
+
+.project--featured {
+    margin-bottom: 1rem;
+    padding: 2.25rem;
+}
+
+.project--featured h3 {
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+}
+
+.project--featured p {
+    max-width: 62ch;
+    font-size: 1.1rem;
+}
+
+.facts {
+    margin: 0;
+    padding-left: 1.2rem;
+}
+
+.facts li::marker {
+    color: var(--accent);
+}
+
+.project-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+}
+
+.project-links a {
+    font-weight: 600;
+    color: var(--accent);
+    text-underline-offset: 4px;
+}
+
+/* Contact */
+.contact {
+    text-align: center;
+}
+
+.contact p {
+    margin: 0 auto 1.5rem;
+    max-width: 45ch;
+}
+
+/* Pied de page */
+.site-footer {
+    text-align: center;
+    padding: 2rem 1rem 3rem;
+    font-size: 0.9rem;
+    color: var(--text-soft);
+}

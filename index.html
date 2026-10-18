@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="fr" data-theme="dawn">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nuage · Développeur Linux & open source</title>
+    <meta name="description" content="Portfolio de Nuage : outils Linux, open source et auto-hébergement. Vigie, Cirrus et autres projets." />
+    <!-- Carte affichée quand le lien est partagé (Discord, X, LinkedIn…). Si tu publies sur un autre domaine, change "elnuageee.fr" dans og:url et og:image -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="Nuage" />
+    <meta property="og:title" content="Nuage · Développeur Linux & open source" />
+    <meta property="og:description" content="Des outils simples pour des choses qui ne le sont pas : Vigie, Cirrus et autres projets Linux et open source." />
+    <meta property="og:url" content="https://elnuageee.fr/" />
+    <meta property="og:image" content="https://elnuageee.fr/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Un ciel de crépuscule avec des nuages, et le nom Nuage." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#1E1B4B" />
+    <link rel="preload" href="/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin />
+    <!--
+      Choisit le thème AVANT l'affichage de la page, pour éviter un flash :
+      1. si le visiteur a déjà cliqué sur le bouton, on reprend son choix ;
+      2. sinon, on suit l'heure de son ordinateur : matin de 7h à 19h, crépuscule le reste du temps.
+    -->
+    <script>
+      (function () {
+        let theme = null;
+        try {
+          const saved = localStorage.getItem('theme');
+          if (saved === 'dawn' || saved === 'dusk') theme = saved;
+        } catch (e) {}
+
+        if (!theme) {
+          const hour = new Date().getHours();
+          theme = hour >= 7 && hour < 19 ? 'dawn' : 'dusk';
+        }
+
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+  </head>
+  <body>
+    <!-- Décor : ciel, soleil et nuages. Purement visuel, ignoré par les lecteurs d'écran. -->
+    <div class="sky" aria-hidden="true">
+      <!--
+        Formes de nuages définies une seule fois (<symbol>), réutilisées plus bas avec <use>.
+        Le dégradé va du haut éclairé vers le dessous teinté par le soleil,
+        ses couleurs viennent des variables CSS donc il suit le thème.
+      -->
+      <svg class="cloud-defs" width="0" height="0">
+        <defs>
+          <linearGradient id="cloud-gradient" x1="0" y1="0" x2="0" y2="100" gradientUnits="userSpaceOnUse">
+            <stop offset="35%" style="stop-color: var(--cloud-light)" />
+            <stop offset="100%" style="stop-color: var(--cloud-shade)" />
+          </linearGradient>
+          <symbol id="cloud-a" viewBox="0 0 200 100">
+            <g fill="url(#cloud-gradient)">
+              <circle cx="55" cy="62" r="28" />
+              <circle cx="92" cy="44" r="38" />
+              <circle cx="136" cy="54" r="30" />
+              <circle cx="166" cy="70" r="20" />
+              <rect x="30" y="62" width="150" height="28" rx="14" />
+            </g>
+          </symbol>
+          <symbol id="cloud-b" viewBox="0 0 200 100">
+            <g fill="url(#cloud-gradient)">
+              <circle cx="48" cy="68" r="20" />
+              <circle cx="78" cy="52" r="28" />
+              <circle cx="118" cy="40" r="34" />
+              <circle cx="154" cy="62" r="24" />
+              <rect x="28" y="66" width="148" height="24" rx="12" />
+            </g>
+          </symbol>
+        </defs>
+      </svg>
+
+      <!-- Étoiles : toujours là, mais invisibles le matin (leur opacité suit la variable --stars) -->
+      <svg class="stars" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+        <g fill="#FFF6E5">
+        <circle cx="1020" cy="23" r="0.83" opacity="0.68" /> <circle cx="1079" cy="465" r="1.85" opacity="0.76" /> <circle cx="355" cy="268" r="1.72" opacity="0.91" /> <circle cx="871" cy="122" r="1.19" opacity="0.35" /> <circle cx="1283" cy="366" r="0.79" opacity="0.78" />
+        <circle cx="542" cy="57" r="2.11" opacity="0.9" /> <circle cx="1285" cy="382" r="1.28" opacity="0.52" /> <circle cx="882" cy="433" r="1.22" opacity="0.61" /> <circle cx="1123" cy="33" r="0.87" opacity="0.39" /> <circle cx="378" cy="62" r="1.08" opacity="0.51" />
+        <circle cx="595" cy="117" r="1.26" opacity="0.64" /> <circle cx="972" cy="97" r="0.8" opacity="0.52" /> <circle cx="1573" cy="336" r="1.11" opacity="0.73" /> <circle cx="1236" cy="127" r="1.79" opacity="0.82" /> <circle cx="343" cy="491" r="0.89" opacity="0.64" />
+        <circle cx="635" cy="476" r="0.86" opacity="0.46" /> <circle cx="897" cy="144" r="1.24" opacity="0.53" /> <circle cx="357" cy="519" r="0.75" opacity="0.37" /> <circle cx="183" cy="330" r="0.95" opacity="0.38" /> <circle cx="613" cy="518" r="1.28" opacity="0.74" />
+        <circle cx="28" cy="378" r="1.02" opacity="0.47" /> <circle cx="1023" cy="67" r="0.97" opacity="0.78" /> <circle cx="1394" cy="144" r="0.81" opacity="0.76" /> <circle cx="1385" cy="162" r="1.07" opacity="0.42" /> <circle cx="1215" cy="285" r="1.02" opacity="0.35" />
+        <circle cx="522" cy="20" r="1.23" opacity="0.72" /> <circle cx="496" cy="40" r="1.27" opacity="0.39" /> <circle cx="778" cy="45" r="1.16" opacity="0.41" /> <circle cx="761" cy="290" r="1.22" opacity="0.54" /> <circle cx="345" cy="285" r="0.82" opacity="0.49" />
+        <circle cx="1582" cy="341" r="1.01" opacity="0.4" /> <circle cx="365" cy="182" r="0.84" opacity="0.45" /> <circle cx="122" cy="332" r="1.24" opacity="0.74" /> <circle cx="122" cy="131" r="0.83" opacity="0.41" /> <circle cx="1488" cy="301" r="1.17" opacity="0.71" />
+        <circle cx="311" cy="59" r="0.95" opacity="0.56" /> <circle cx="1162" cy="353" r="0.76" opacity="0.53" /> <circle cx="546" cy="449" r="0.81" opacity="0.55" /> <circle cx="677" cy="152" r="1.25" opacity="0.55" /> <circle cx="1371" cy="291" r="2.2" opacity="0.96" />
+        <circle cx="1541" cy="482" r="0.8" opacity="0.57" /> <circle cx="348" cy="215" r="1.83" opacity="1.0" /> <circle cx="429" cy="410" r="0.95" opacity="0.78" /> <circle cx="1583" cy="293" r="0.79" opacity="0.48" /> <circle cx="1541" cy="305" r="1.15" opacity="0.38" />
+        <circle cx="933" cy="266" r="0.79" opacity="0.78" /> <circle cx="137" cy="105" r="1.11" opacity="0.46" /> <circle cx="199" cy="464" r="1.06" opacity="0.63" /> <circle cx="672" cy="308" r="1.26" opacity="0.44" /> <circle cx="1142" cy="132" r="1.1" opacity="0.48" />
+        <circle cx="510" cy="393" r="1.87" opacity="1.0" /> <circle cx="1584" cy="47" r="0.86" opacity="0.77" /> <circle cx="1402" cy="458" r="0.79" opacity="0.73" /> <circle cx="1122" cy="322" r="1.09" opacity="0.35" /> <circle cx="1301" cy="163" r="1.26" opacity="0.41" />
+        <circle cx="192" cy="65" r="0.86" opacity="0.62" /> <circle cx="1144" cy="114" r="0.86" opacity="0.57" /> <circle cx="1440" cy="442" r="1.85" opacity="0.82" /> <circle cx="16" cy="403" r="0.86" opacity="0.68" /> <circle cx="882" cy="228" r="1.65" opacity="0.97" />
+        <circle cx="1438" cy="288" r="1.05" opacity="0.42" /> <circle cx="211" cy="167" r="1.18" opacity="0.74" /> <circle cx="1430" cy="117" r="0.76" opacity="0.7" /> <circle cx="1407" cy="217" r="0.79" opacity="0.77" /> <circle cx="1376" cy="508" r="1.23" opacity="0.36" />
+        <circle cx="1174" cy="179" r="1.18" opacity="0.74" /> <circle cx="1291" cy="146" r="0.76" opacity="0.74" /> <circle cx="1367" cy="123" r="0.98" opacity="0.49" /> <circle cx="1267" cy="126" r="1.72" opacity="0.83" /> <circle cx="1376" cy="503" r="1.08" opacity="0.53" />
+        </g>
+      </svg>
+
+      <div class="sun"></div>
+
+      <!-- Nuages lointains : petits, pâles, flous, près de l'horizon -->
+      <svg class="cloud cloud--far" style="--x: 8%; --y: 52%; --w: clamp(90px, 12vw, 190px)" viewBox="0 0 200 100"><use href="#cloud-b" /></svg>
+      <svg class="cloud cloud--far cloud--flip" style="--x: 30%; --y: 72%; --w: clamp(100px, 13vw, 210px)" viewBox="0 0 200 100"><use href="#cloud-a" /></svg>
+      <svg class="cloud cloud--far" style="--x: 60%; --y: 78%; --w: clamp(110px, 15vw, 230px)" viewBox="0 0 200 100"><use href="#cloud-b" /></svg>
+      <svg class="cloud cloud--far cloud--flip" style="--x: 84%; --y: 60%; --w: clamp(80px, 11vw, 170px)" viewBox="0 0 200 100"><use href="#cloud-a" /></svg>
+
+      <!-- Nuages proches : grands, nets, sur les bords pour laisser le centre libre -->
+      <svg class="cloud cloud--near" style="--x: -6%; --y: 8%; --w: clamp(180px, 28vw, 440px)" viewBox="0 0 200 100"><use href="#cloud-a" /></svg>
+      <svg class="cloud cloud--near cloud--flip" style="--x: 74%; --y: 22%; --w: clamp(160px, 26vw, 400px)" viewBox="0 0 200 100"><use href="#cloud-b" /></svg>
+      <svg class="cloud cloud--near" style="--x: -4%; --y: 66%; --w: clamp(150px, 22vw, 340px)" viewBox="0 0 200 100"><use href="#cloud-b" /></svg>
+    </div>
+
+    <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+    <header class="site-header">
+      <a class="logo" href="#accueil">nuage<span>.</span></a>
+      <nav aria-label="Navigation principale">
+        <ul class="nav-links">
+          <li><a href="#a-propos">À propos</a></li>
+          <li><a href="#competences">Compétences</a></li>
+          <li><a href="#projets">Projets</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <button id="theme" class="theme-toggle" type="button" aria-pressed="false">Matin</button>
+    </header>
+
+    <main id="contenu">
+      <!-- ===== Accueil ===== -->
+      <section id="accueil" class="hero">
+        <p class="hero-kicker">Développeur · Linux · Open source</p>
+        <h1>Bonjour, moi c'est <em>Nuage</em>.</h1>
+        <p class="hero-lead">
+          Je construis des outils simples pour des choses qui ne le sont pas&nbsp;:
+          gérer un serveur Linux, éditer du code, superviser une infra auto-hébergée.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn--primary" href="#projets">Voir mes projets</a>
+          <a class="btn" href="https://github.com/nuageeee" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </section>
+
+      <!-- ===== À propos ===== -->
+      <section id="a-propos" class="section">
+        <h2>À propos</h2>
+        <div class="card about">
+          <p>
+            Je code avant tout pour <strong>aider les autres</strong>&nbsp;: rendre accessible ce qui
+            demande d'habitude une dizaine de commandes ou un après-midi de documentation.
+          </p>
+          <p>
+            Mon terrain de jeu, c'est <strong>Linux</strong>, l'<strong>open source</strong> et
+            l'<strong>auto-hébergement</strong>. Je fais tourner mes propres serveurs, je publie mes
+            outils sous licence libre, et je préfère comprendre comment une chose marche plutôt
+            que d'importer une solution toute faite.
+          </p>
+          <p>
+            Côté terrain, je suis technicien de maintenance industrielle&nbsp;: automates,
+            électricité, équipements. Ça se retrouve dans mes projets, entre logiciel et matériel.
+          </p>
+        </div>
+      </section>
+
+      <!-- ===== Compétences ===== -->
+      <section id="competences" class="section">
+        <h2>Compétences</h2>
+        <div class="skills-grid">
+          <div class="card skill-group">
+            <h3>Langages</h3>
+            <ul class="tags">
+              <li>Dart</li><li>JavaScript</li><li>HTML / CSS</li><li>PHP · Laravel</li><li>Bash</li>
+            </ul>
+          </div>
+          <div class="card skill-group">
+            <h3>Systèmes & infra</h3>
+            <ul class="tags">
+              <li>Linux</li><li>systemd</li><li>Docker</li><li>Traefik · Dokploy</li><li>SSH</li><li>Dépôts APT signés</li>
+            </ul>
+          </div>
+          <div class="card skill-group">
+            <h3>Supervision</h3>
+            <ul class="tags">
+              <li>Grafana</li><li>Prometheus</li><li>Node Exporter</li><li>Portainer</li>
+            </ul>
+          </div>
+          <div class="card skill-group">
+            <h3>Applications</h3>
+            <ul class="tags">
+              <li>Interfaces terminal (TUI)</li><li>Electron</li><li>CodeMirror</li><li>Tauri</li><li>React · Inertia</li>
+            </ul>
+          </div>
+          <div class="card skill-group">
+            <h3>Matériel & automatisme</h3>
+            <ul class="tags">
+              <li>Arduino</li><li>ESP32</li><li>Raspberry Pi</li><li>Automates · OpenPLC</li><li>Impression 3D</li>
+            </ul>
+          </div>
+          <div class="card skill-group">
+            <h3>Méthode</h3>
+            <ul class="tags">
+              <li>Git · GitHub</li><li>Publication pub.dev</li><li>Versions incrémentales</li><li>Documentation</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Projets ===== -->
+      <section id="projets" class="section">
+        <h2>Projets</h2>
+
+        <article class="card project project--featured">
+          <div class="project-head">
+            <h3>Vigie</h3>
+            <span class="badge">Projet principal</span>
+          </div>
+          <p>
+            Gérer un serveur Linux depuis une seule fenêtre&nbsp;: surveiller la machine, créer des
+            utilisateurs, suivre les processus, activer ou couper les services systemd. Le tout dans
+            une interface terminal, utilisable en SSH, sans retenir une dizaine de commandes.
+          </p>
+          <ul class="facts">
+            <li>Interface plein écran avec support de la souris et shell bash intégré</li>
+            <li>Publié sur pub.dev et distribué via mon propre dépôt APT signé</li>
+            <li>Open source, licence MIT</li>
+          </ul>
+          <ul class="tags">
+            <li>Dart</li><li>TUI</li><li>systemd</li><li>APT</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://github.com/nuageeee/vigie" target="_blank" rel="noopener">Code source</a>
+            <a href="https://pub.dev/packages/vigie" target="_blank" rel="noopener">pub.dev</a>
+            <a href="https://nuageeee.github.io/vigie/" target="_blank" rel="noopener">Documentation</a>
+          </div>
+        </article>
+
+        <div class="projects-grid">
+          <article class="card project">
+            <div class="project-head">
+              <h3>Cirrus</h3>
+              <span class="badge badge--wip">En cours</span>
+            </div>
+            <p>
+              Mon propre éditeur de code, pensé pour être modifiable de fond en comble, dans
+              l'esprit d'Atom. Construit par petites versions utilisables.
+            </p>
+            <ul class="tags"><li>JavaScript</li><li>Electron</li><li>CodeMirror 6</li></ul>
+          </article>
+
+          <article class="card project">
+            <div class="project-head"><h3>Reset Linux</h3></div>
+            <p>
+              Remettre une machine Linux dans un état de référence en récupérant ses fichiers
+              depuis un serveur distant. Détection de la distribution, architecture inspirée d'ostree.
+            </p>
+            <ul class="tags"><li>Dart</li><li>Linux</li></ul>
+          </article>
+
+          <article class="card project">
+            <div class="project-head"><h3>Supervision auto-hébergée</h3></div>
+            <p>
+              Une stack Grafana et Prometheus qui surveille plusieurs VPS, avec des tableaux de bord
+              construits à la main et un accès aux métriques restreint par pare-feu.
+            </p>
+            <ul class="tags"><li>Grafana</li><li>Prometheus</li><li>Docker</li><li>UFW</li></ul>
+          </article>
+
+          <article class="card project">
+            <div class="project-head"><h3>Contribution à Whisper Money</h3></div>
+            <p>
+              Développement d'une fonctionnalité de suivi des abonnements dans une application de
+              finances personnelles, en respectant les conventions du projet existant.
+            </p>
+            <ul class="tags"><li>Laravel</li><li>React</li><li>Inertia</li></ul>
+          </article>
+
+          <article class="card project">
+            <div class="project-head"><h3>Système basé sur Arch</h3></div>
+            <p>
+              Une distribution personnelle basée sur Arch Linux, avec un installateur graphique et une
+              animation de démarrage façon vieux terminal.
+            </p>
+            <ul class="tags"><li>Arch Linux</li><li>Tauri</li><li>Plymouth</li></ul>
+          </article>
+
+          <article class="card project">
+            <div class="project-head">
+              <h3>Ruby, robot de bureau</h3>
+              <span class="badge badge--wip">En cours</span>
+            </div>
+            <p>
+              Un petit robot qui réagit au toucher et à la voix, avec une IA vocale qui tourne sur un
+              Raspberry Pi et une coque modélisée puis imprimée en 3D.
+            </p>
+            <ul class="tags"><li>Arduino</li><li>Raspberry Pi</li><li>FreeCAD</li></ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- ===== Contact ===== -->
+      <section id="contact" class="section">
+        <h2>Contact</h2>
+        <div class="card contact">
+          <p>
+            Un retour sur un de mes outils, une idée, une question&nbsp;? Le plus simple, c'est
+            de passer par GitHub.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn--primary" href="https://github.com/nuageeee" target="_blank" rel="noopener">Mon GitHub</a>
+            <a class="btn" href="https://github.com/nuageeee/vigie/issues" target="_blank" rel="noopener">Un retour sur Vigie</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Fait main par Nuage, en HTML et CSS, auto-hébergé.</p>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

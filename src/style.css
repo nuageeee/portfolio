@@ -73,6 +73,7 @@
 
     --font-title: "Fraunces", Georgia, serif;
     --font-body: "Inter", system-ui, sans-serif;
+    --font-mono: ui-monospace, "Cascadia Code", "JetBrains Mono", Consolas, "DejaVu Sans Mono", monospace;
     --radius: 20px;
 
     color-scheme: light;
@@ -366,25 +367,31 @@ section[id] {
     padding: 7rem 0 10rem;
 }
 
-.hero-kicker {
-    margin: 0 0 1.25rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+/* L'invite de terminal au-dessus du nom */
+.hero-prompt {
+    margin: 0 0 0.75rem;
+    font-family: var(--font-mono);
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
     color: var(--text-soft);
 }
 
-.hero h1 {
-    font-size: clamp(3rem, 8vw, 6.25rem);
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: -0.015em;
-    max-width: 12ch;
+.prompt-user {
+    color: var(--accent);
+    font-weight: 600;
 }
 
-.hero h1 em {
-    font-style: italic;
+.prompt-path {
+    color: var(--text);
+}
+
+.hero h1 {
+    font-size: clamp(4.5rem, 16vw, 11rem);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+}
+
+.hero h1 .dot {
     color: var(--accent);
 }
 

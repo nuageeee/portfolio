@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="fr" data-theme="dawn">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Page introuvable · Nuage</title>
+    <link rel="preload" href="/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin />
+    <!--
+      Choisit le thème AVANT l'affichage de la page, pour éviter un flash :
+      1. si le visiteur a déjà cliqué sur le bouton, on reprend son choix ;
+      2. sinon, on suit l'heure de son ordinateur : matin de 7h à 19h, crépuscule le reste du temps.
+    -->
+    <script>
+      (function () {
+        let theme = null;
+        try {
+          const saved = localStorage.getItem('theme');
+          if (saved === 'dawn' || saved === 'dusk') theme = saved;
+        } catch (e) {}
+
+        if (!theme) {
+          const hour = new Date().getHours();
+          theme = hour >= 7 && hour < 19 ? 'dawn' : 'dusk';
+        }
+
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+  </head>
+  <body>
+    <!-- Décor : ciel, soleil et nuages. Purement visuel, ignoré par les lecteurs d'écran. -->
+    <div class="sky" aria-hidden="true">
+      <!--
+        Formes de nuages définies une seule fois (<symbol>), réutilisées plus bas avec <use>.
+        Le dégradé va du haut éclairé vers le dessous teinté par le soleil,
+        ses couleurs viennent des variables CSS donc il suit le thème.
+      -->
+      <svg class="cloud-defs" width="0" height="0">
+        <defs>
+          <linearGradient id="cloud-gradient" x1="0" y1="0" x2="0" y2="100" gradientUnits="userSpaceOnUse">
+            <stop offset="35%" style="stop-color: var(--cloud-light)" />
+            <stop offset="100%" style="stop-color: var(--cloud-shade)" />
+          </linearGradient>
+          <symbol id="cloud-a" viewBox="0 0 200 100">
+            <g fill="url(#cloud-gradient)">
+              <circle cx="55" cy="62" r="28" />
+              <circle cx="92" cy="44" r="38" />
+              <circle cx="136" cy="54" r="30" />
+              <circle cx="166" cy="70" r="20" />
+              <rect x="30" y="62" width="150" height="28" rx="14" />
+            </g>
+          </symbol>
+          <symbol id="cloud-b" viewBox="0 0 200 100">
+            <g fill="url(#cloud-gradient)">
+              <circle cx="48" cy="68" r="20" />
+              <circle cx="78" cy="52" r="28" />
+              <circle cx="118" cy="40" r="34" />
+              <circle cx="154" cy="62" r="24" />
+              <rect x="28" y="66" width="148" height="24" rx="12" />
+            </g>
+          </symbol>
+        </defs>
+      </svg>
+
+      <!-- Étoiles : toujours là, mais invisibles le matin (leur opacité suit la variable --stars) -->
+      <svg class="stars" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+        <g fill="#FFF6E5">
+        <circle cx="1020" cy="23" r="0.83" opacity="0.68" /> <circle cx="1079" cy="465" r="1.85" opacity="0.76" /> <circle cx="355" cy="268" r="1.72" opacity="0.91" /> <circle cx="871" cy="122" r="1.19" opacity="0.35" /> <circle cx="1283" cy="366" r="0.79" opacity="0.78" />
+        <circle cx="542" cy="57" r="2.11" opacity="0.9" /> <circle cx="1285" cy="382" r="1.28" opacity="0.52" /> <circle cx="882" cy="433" r="1.22" opacity="0.61" /> <circle cx="1123" cy="33" r="0.87" opacity="0.39" /> <circle cx="378" cy="62" r="1.08" opacity="0.51" />
+        <circle cx="595" cy="117" r="1.26" opacity="0.64" /> <circle cx="972" cy="97" r="0.8" opacity="0.52" /> <circle cx="1573" cy="336" r="1.11" opacity="0.73" /> <circle cx="1236" cy="127" r="1.79" opacity="0.82" /> <circle cx="343" cy="491" r="0.89" opacity="0.64" />
+        <circle cx="635" cy="476" r="0.86" opacity="0.46" /> <circle cx="897" cy="144" r="1.24" opacity="0.53" /> <circle cx="357" cy="519" r="0.75" opacity="0.37" /> <circle cx="183" cy="330" r="0.95" opacity="0.38" /> <circle cx="613" cy="518" r="1.28" opacity="0.74" />
+        <circle cx="28" cy="378" r="1.02" opacity="0.47" /> <circle cx="1023" cy="67" r="0.97" opacity="0.78" /> <circle cx="1394" cy="144" r="0.81" opacity="0.76" /> <circle cx="1385" cy="162" r="1.07" opacity="0.42" /> <circle cx="1215" cy="285" r="1.02" opacity="0.35" />
+        <circle cx="522" cy="20" r="1.23" opacity="0.72" /> <circle cx="496" cy="40" r="1.27" opacity="0.39" /> <circle cx="778" cy="45" r="1.16" opacity="0.41" /> <circle cx="761" cy="290" r="1.22" opacity="0.54" /> <circle cx="345" cy="285" r="0.82" opacity="0.49" />
+        <circle cx="1582" cy="341" r="1.01" opacity="0.4" /> <circle cx="365" cy="182" r="0.84" opacity="0.45" /> <circle cx="122" cy="332" r="1.24" opacity="0.74" /> <circle cx="122" cy="131" r="0.83" opacity="0.41" /> <circle cx="1488" cy="301" r="1.17" opacity="0.71" />
+        <circle cx="311" cy="59" r="0.95" opacity="0.56" /> <circle cx="1162" cy="353" r="0.76" opacity="0.53" /> <circle cx="546" cy="449" r="0.81" opacity="0.55" /> <circle cx="677" cy="152" r="1.25" opacity="0.55" /> <circle cx="1371" cy="291" r="2.2" opacity="0.96" />
+        <circle cx="1541" cy="482" r="0.8" opacity="0.57" /> <circle cx="348" cy="215" r="1.83" opacity="1.0" /> <circle cx="429" cy="410" r="0.95" opacity="0.78" /> <circle cx="1583" cy="293" r="0.79" opacity="0.48" /> <circle cx="1541" cy="305" r="1.15" opacity="0.38" />
+        <circle cx="933" cy="266" r="0.79" opacity="0.78" /> <circle cx="137" cy="105" r="1.11" opacity="0.46" /> <circle cx="199" cy="464" r="1.06" opacity="0.63" /> <circle cx="672" cy="308" r="1.26" opacity="0.44" /> <circle cx="1142" cy="132" r="1.1" opacity="0.48" />
+        <circle cx="510" cy="393" r="1.87" opacity="1.0" /> <circle cx="1584" cy="47" r="0.86" opacity="0.77" /> <circle cx="1402" cy="458" r="0.79" opacity="0.73" /> <circle cx="1122" cy="322" r="1.09" opacity="0.35" /> <circle cx="1301" cy="163" r="1.26" opacity="0.41" />
+        <circle cx="192" cy="65" r="0.86" opacity="0.62" /> <circle cx="1144" cy="114" r="0.86" opacity="0.57" /> <circle cx="1440" cy="442" r="1.85" opacity="0.82" /> <circle cx="16" cy="403" r="0.86" opacity="0.68" /> <circle cx="882" cy="228" r="1.65" opacity="0.97" />
+        <circle cx="1438" cy="288" r="1.05" opacity="0.42" /> <circle cx="211" cy="167" r="1.18" opacity="0.74" /> <circle cx="1430" cy="117" r="0.76" opacity="0.7" /> <circle cx="1407" cy="217" r="0.79" opacity="0.77" /> <circle cx="1376" cy="508" r="1.23" opacity="0.36" />
+        <circle cx="1174" cy="179" r="1.18" opacity="0.74" /> <circle cx="1291" cy="146" r="0.76" opacity="0.74" /> <circle cx="1367" cy="123" r="0.98" opacity="0.49" /> <circle cx="1267" cy="126" r="1.72" opacity="0.83" /> <circle cx="1376" cy="503" r="1.08" opacity="0.53" />
+        </g>
+      </svg>
+
+      <div class="sun"></div>
+
+      <!-- Nuages lointains : petits, pâles, flous, près de l'horizon -->
+      <svg class="cloud cloud--far" style="--x: 60%; --y: 50%; --w: clamp(90px, 12vw, 190px)" viewBox="0 0 200 100"><use href="#cloud-b" /></svg>
+      <svg class="cloud cloud--far cloud--flip" style="--x: 30%; --y: 72%; --w: clamp(100px, 13vw, 210px)" viewBox="0 0 200 100"><use href="#cloud-a" /></svg>
+      <svg class="cloud cloud--far" style="--x: 60%; --y: 78%; --w: clamp(110px, 15vw, 230px)" viewBox="0 0 200 100"><use href="#cloud-b" /></svg>
+      <svg class="cloud cloud--far cloud--flip" style="--x: 84%; --y: 60%; --w: clamp(80px, 11vw, 170px)" viewBox="0 0 200 100"><use href="#cloud-a" /></svg>
+
+      <!-- Nuages proches : grands, nets, sur les bords pour laisser le centre libre -->
+      <svg class="cloud cloud--near" style="--x: -6%; --y: 3%; --w: clamp(180px, 26vw, 400px)" viewBox="0 0 200 100"><use href="#cloud-a" /></svg>
+      <svg class="cloud cloud--near cloud--flip" style="--x: 74%; --y: 22%; --w: clamp(160px, 26vw, 400px)" viewBox="0 0 200 100"><use href="#cloud-b" /></svg>
+      <svg class="cloud cloud--near" style="--x: -4%; --y: 66%; --w: clamp(150px, 22vw, 340px)" viewBox="0 0 200 100"><use href="#cloud-b" /></svg>
+    </div>
+
+
+    <header class="site-header site-header--simple">
+      <a class="logo" href="/">nuage<span>.</span></a>
+      <button id="theme" class="theme-toggle" type="button" aria-pressed="false">Matin</button>
+    </header>
+
+    <main class="hero lost">
+      <!-- Le terminal essaie d'aller à l'adresse demandée… et échoue -->
+      <p class="hero-prompt" aria-hidden="true">
+        <span class="prompt-user">nuage@elnuagee</span>:<span class="prompt-path">~</span>$ cd <span id="lost-path">/cette-page</span>
+      </p>
+      <p class="lost-error" aria-hidden="true">
+        bash: cd: <span id="lost-path-error">/cette-page</span>: Aucun fichier ou dossier de ce type
+      </p>
+
+      <h1>Ce nuage s'est perdu<span class="dot">.</span></h1>
+      <p class="hero-lead">
+        La page que tu cherches n'existe pas, ou elle s'est envolée.
+        Le ciel est quand même joli, non&nbsp;?
+      </p>
+      <p class="hero-links">
+        <a href="/">Retour à l'accueil</a>
+        <a href="/#projets">Voir les projets</a>
+      </p>
+    </main>
+
+    <script type="module" src="/src/404.js"></script>
+  </body>
+</html>
